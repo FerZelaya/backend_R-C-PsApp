@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var multer = require('multer')
 const path = require('path')
+const fs = require('fs')
 const model = require('./recipes.model')
 
 
@@ -50,10 +51,12 @@ router.get('/showUserRecipes', async(req,res)=>{
 //Image storage configurations
 const storage = multer.diskStorage({
     destination: function(req,file,cb){
-        cb(null, path.join(__dirname, '/uploads/'))
+        fs.mkdir('./uploads/',(err)=>{
+            cb(null, './uploads/');
+         });
     },
     filename: function(req,file,cb){
-        cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname)
+        cb(null, new Date().toISOString().replace(/:/g, '-')+ '-' + file.originalname)
     }
 })
 
