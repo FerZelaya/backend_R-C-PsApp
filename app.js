@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyparser = require('body-parser')
-var fileupload = require('express-fileupload')
+var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api')
@@ -14,7 +14,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+app.use(cors())
 app.use(logger('dev'));
 app.use('/uploads',express.static('uploads'))
 app.use(express.json());
